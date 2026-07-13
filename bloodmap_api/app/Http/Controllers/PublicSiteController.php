@@ -137,4 +137,9 @@ class PublicSiteController extends Controller
     {
         return view('public.contact');
     }
+
+    public function adminLogin(): View
+    {
+        return view('public.admin-login');
+    }
 }

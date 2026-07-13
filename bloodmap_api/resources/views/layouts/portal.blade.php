@@ -55,8 +55,14 @@
                     Reports
                 </a>
                 @if(Auth::check() && Auth::user()->isSuperAdmin())
-                <a href="{{ route('portal.admins.index') }}" class="{{ request()->routeIs('portal.admins.*') ? 'active' : '' }}">
+                <a href="{{ route('portal.admins.index') }}" class="{{ request()->routeIs('portal.admins.index') || request()->routeIs('portal.admins.create') || request()->routeIs('portal.admins.edit') ? 'active' : '' }}">
                     Admin Management
+                </a>
+                <a href="{{ route('portal.admins.login-history') }}" class="{{ request()->routeIs('portal.admins.login-history') ? 'active' : '' }}">
+                    Login History
+                </a>
+                <a href="{{ route('portal.admins.audit-logs') }}" class="{{ request()->routeIs('portal.admins.audit-logs') ? 'active' : '' }}">
+                    Audit Logs
                 </a>
                 @endif
                 <a href="{{ route('portal.settings') }}" class="{{ request()->routeIs('portal.settings') ? 'active' : '' }}">

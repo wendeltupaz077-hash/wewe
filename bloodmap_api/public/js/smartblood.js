@@ -200,19 +200,28 @@
         document.head.appendChild(style);
     }
 
-    // Floating blood cells
+    // Replace floating bubbles with blood-vessels (sharp SVG shapes)
     const bloodCells = document.getElementById('bloodCells');
     if (bloodCells) {
-        for (let i = 0; i < 18; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'blood-cell';
-            const size = 12 + Math.random() * 28;
-            cell.style.width = size + 'px';
-            cell.style.height = size + 'px';
-            cell.style.left = Math.random() * 100 + '%';
-            cell.style.animationDuration = (8 + Math.random() * 14) + 's';
-            cell.style.animationDelay = (Math.random() * 10) + 's';
-            bloodCells.appendChild(cell);
+        const rootStyle = getComputedStyle(document.documentElement);
+        const strokeColor = rootStyle.getPropertyValue('--blood-red').trim() || '#c41e3a';
+        const vesselCount = 8;
+        for (let i = 0; i < vesselCount; i++) {
+            const vessel = document.createElement('div');
+            vessel.className = 'blood-vessel';
+            const widthPct = 30 + Math.random() * 50; // percent width
+            const heightVh = 6 + Math.random() * 18; // height in vh
+            vessel.style.width = widthPct + '%';
+            vessel.style.height = heightVh + 'vh';
+            vessel.style.left = Math.random() * 100 + '%';
+            vessel.style.top = (10 + Math.random() * 70) + 'vh';
+            vessel.style.animationDuration = (18 + Math.random() * 32) + 's';
+            vessel.style.animationDelay = (Math.random() * 8) + 's';
+            vessel.style.opacity = (0.06 + Math.random() * 0.14).toFixed(2);
+
+            const svg = `<svg viewBox="0 0 200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C50,10 150,50 200,30" stroke="${strokeColor}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            vessel.innerHTML = svg;
+            bloodCells.appendChild(vessel);
         }
     }
 

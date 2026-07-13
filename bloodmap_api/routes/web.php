@@ -25,17 +25,24 @@ Route::get('/how-it-works', [PublicSiteController::class, 'howItWorks'])->name('
 Route::get('/stock-status', [PublicSiteController::class, 'stockStatus'])->name('stock-status');
 Route::get('/download', [PublicSiteController::class, 'download'])->name('download');
 Route::get('/mobile-app', [PublicSiteController::class, 'mobileApp'])->name('mobile-app');
+Route::get('/admin-login', [PublicSiteController::class, 'adminLogin'])->name('admin-login');
 
 Route::prefix('portal')->name('portal.')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-        Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-        Route::post('/handle-email', [AuthController::class, 'handleEmail'])->name('handle-email');
-        Route::get('/auth-notice', [AuthController::class, 'showNotice'])->name('auth-notice');
-        Route::get('/verify-email', [AuthController::class, 'verifyEmail'])->name('verify-email');
-        Route::get('/set-password', [AuthController::class, 'showSetPassword'])->name('set-password');
-        Route::post('/set-password', [AuthController::class, 'setPassword'])->name('set-password.submit');
-        Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
-        Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('forgot-password.submit');
+    Route::get('/login/google', [AuthController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('login.google.callback');
+    Route::get('/otp/verify', [AuthController::class, 'showOtpVerify'])->name('otp.verify');
+    Route::post('/otp/verify', [AuthController::class, 'verifyOtp'])->name('otp.verify.submit');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::post('/handle-email', [AuthController::class, 'handleEmail'])->name('handle-email');
+    Route::get('/auth-notice', [AuthController::class, 'showNotice'])->name('auth-notice');
+    Route::get('/verify-email', [AuthController::class, 'verifyEmail'])->name('verify-email');
+    Route::get('/invite/accept', [AuthController::class, 'acceptInvite'])->name('invite.accept');
+    Route::post('/invite/accept', [AuthController::class, 'submitInvite'])->name('invite.accept.submit');
+    Route::get('/set-password', [AuthController::class, 'showSetPassword'])->name('set-password');
+    Route::post('/set-password', [AuthController::class, 'setPassword'])->name('set-password.submit');
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('forgot-password.submit');
 
     Route::middleware(['auth', EnsurePortalAccess::class])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -53,6 +60,8 @@ Route::prefix('portal')->name('portal.')->group(function () {
             Route::put('/{admin}', [AdminController::class, 'update'])->name('update');
             Route::post('/{admin}/reset-password', [AdminController::class, 'resetPassword'])->name('reset-password');
             Route::delete('/{admin}', [AdminController::class, 'destroy'])->name('destroy');
+            Route::get('/login-history', [AdminController::class, 'loginHistory'])->name('login-history');
+            Route::get('/audit-logs', [AdminController::class, 'auditLogs'])->name('audit-logs');
         });
         
         Route::get('/stock', [\App\Http\Controllers\Portal\StockController::class, 'index'])->name('stock');
@@ -63,6 +72,8 @@ Route::prefix('portal')->name('portal.')->group(function () {
         Route::get('/api/notifications/latest', [\App\Http\Controllers\Portal\NotificationController::class, 'apiLatest'])->name('api.notifications.latest');
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
         Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update');
+        Route::post('/settings/super-admin', [SettingsController::class, 'updateSuperAdmin'])->name('settings.super-admin.update')->middleware('isSuperAdmin');
+        Route::delete('/settings/super-admin', [SettingsController::class, 'deleteSuperAdmin'])->name('settings.super-admin.delete')->middleware('isSuperAdmin');
 
         // Legal / About pages for portal
         Route::get('/privacy', function () { return view('portal.privacy'); })->name('privacy');

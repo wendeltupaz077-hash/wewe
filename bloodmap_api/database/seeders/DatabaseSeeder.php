@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             \App\Models\AppNotification::create([
                 'user_id' => $superAdmin->id,
                 'type' => 'info',
-                'title' => 'Welcome to SmartBlood PH!',',
+                'title' => 'Welcome to SmartBlood PH!',
                 'message' => 'Your account has been set up successfully. Start managing your blood bank operations.',
                 'is_read' => false,
             ]);
@@ -33,20 +33,22 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         
-        $admin = User::create([
-            'name' => 'System Administrator',
-            'first_name' => 'System',
-            'last_name' => 'Administrator',
-            'fullname' => 'System Administrator',
-            'email' => 'admin@smartblood.ph',
-            'phone' => '+639171234567',
-            'password' => Hash::make('Password123'),
-            'role' => 'admin',
-            'status' => 'active',
-            'is_registered' => true,
-            'phone_verified' => true,
-            'is_first_login' => false,
-        ]);
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@smartblood.ph'],
+            [
+                'name' => 'System Administrator',
+                'first_name' => 'System',
+                'last_name' => 'Administrator',
+                'fullname' => 'System Administrator',
+                'phone' => '+639171234567',
+                'password' => Hash::make('Password123!'),
+                'role' => 'admin',
+                'status' => 'active',
+                'is_registered' => true,
+                'phone_verified' => true,
+                'is_first_login' => false,
+            ]
+        );
 
         $ormocHospital = Facility::create([
             'name' => 'Ormoc District Hospital',

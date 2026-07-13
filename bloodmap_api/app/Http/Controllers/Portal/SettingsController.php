@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class SettingsController extends Controller
 {
     public function index(): View
     {
-        return view('portal.settings');
+        $superAdmin = User::where('role', 'super_admin')->first();
+        return view('portal.settings', compact('superAdmin'));
     }
 
     public function update(Request $request): RedirectResponse
@@ -61,7 +63,41 @@ class SettingsController extends Controller
             $user->save();
         }
 
-
         return back()->with('success', 'Settings updated successfully!');
+    }
+
+    public function updateSuperAdmin(Request $request): RedirectResponse
+    {
+        if (Auth::user()->role !== 'super_admin') {
+            abort(403);
+        }
+        $superAdmin = User::where('role', 'super_admin')->firstOrFail();
+        $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $superAdmin->id,
+            'password' => 'nullable|confirmed|min:8',
+        ]);
+
+        $data = $request->only(['fullname', 'email']);
+        $data['name'] = $request->fullname;
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $superAdmin->update($data);
+
+        return back()->with('success', 'Super admin account updated successfully!');
+    }
+
+    public function deleteSuperAdmin(): RedirectResponse
+    {
+        if (Auth::user()->role !== 'super_admin') {
+            abort(403);
+        }
+        $superAdmin = User::where('role', 'super_admin')->firstOrFail();
+        $superAdmin->delete();
+        Auth::logout();
+        return redirect()->route('portal.login')->with('success', 'Super admin account deleted successfully!');
     }
 }

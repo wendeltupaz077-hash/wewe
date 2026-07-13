@@ -15,7 +15,7 @@ body {
     margin: 0;
     font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
     color: var(--ink);
-    background: var(--cream);
+    background: linear-gradient(180deg, #050405 0%, #2b0000 100%);
     overflow-x: hidden;
 }
 
@@ -156,40 +156,41 @@ a { color: inherit; text-decoration: none; }
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 20% 50%, rgba(196, 30, 58, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(139, 0, 0, 0.08) 0%, transparent 40%),
-        linear-gradient(180deg, #fff8f6 0%, #ffe8e8 100%);
+        radial-gradient(ellipse at 25% 30%, rgba(196, 30, 58, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 75% 70%, rgba(139, 0, 0, 0.04) 0%, transparent 45%),
+        linear-gradient(180deg, #050405 0%, #2b0000 100%);
 }
 
 .blood-cells {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    overflow: hidden;
+    overflow: visible;
 }
 
-.blood-cell {
+/* Blood vessels animation (sharp, no blur) */
+.blood-vessel {
     position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ff8a8a, var(--blood-red));
-    opacity: 0.15;
-    animation: float-cell linear infinite;
+    left: 0;
+    top: 0;
+    transform-origin: center;
+    opacity: 0.12;
+    will-change: transform, opacity;
+    animation-name: vesselFloat;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
-.blood-cell::after {
-    content: '';
-    position: absolute;
-    width: 35%; height: 35%;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    top: 20%; left: 25%;
+.blood-vessel svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-@keyframes float-cell {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.15; }
-    90% { opacity: 0.15; }
-    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+@keyframes vesselFloat {
+    0% { transform: translateY(14vh) translateX(0) rotate(0deg); opacity: 0.12; }
+    50% { transform: translateY(-6vh) translateX(6vw) rotate(2deg); opacity: 0.16; }
+    100% { transform: translateY(14vh) translateX(0) rotate(0deg); opacity: 0.12; }
 }
 
 .vein-lines {
@@ -1182,12 +1183,12 @@ body.dark-mode .record-count { color: rgba(255,255,255,0.9); }
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: var(--cream);
+    background: linear-gradient(180deg, #050405 0%, #2b0000 100%);
 }
 .login-bg {
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, #ffe8e8 0%, var(--cream) 100%);
+    background: linear-gradient(180deg, rgba(6,6,6,0.9) 0%, rgba(43,0,0,0.95) 100%);
     overflow: hidden;
 }
 .login-card {
@@ -1198,11 +1199,84 @@ body.dark-mode .record-count { color: rgba(255,255,255,0.9); }
     padding: 2.5rem;
     width: min(420px, 92%);
     box-shadow: 0 20px 60px rgba(196,30,58,0.12);
-    border: 1px solid rgba(196,30,58,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(6,6,6,0.96), rgba(28,6,6,0.98));
+    color: #fff;
     animation: fade-up 0.6s ease;
 }
-.login-card h1 { text-align: center; margin: 0 0 0.5rem; font-size: 1.5rem; }
-.login-subtitle { text-align: center; color: var(--muted); margin: 0 0 1.5rem; font-size: 0.9rem; }
+.login-card h1 { text-align: center; margin: 0 0 0.5rem; font-size: 1.5rem; color: #fff; }
+.login-subtitle { text-align: center; color: rgba(255,255,255,0.72); margin: 0 0 1.5rem; font-size: 0.9rem; }
+.login-card .form-group.floating-label {
+    position: relative;
+    margin-bottom: 1.75rem;
+}
+.login-card .form-group.floating-label input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 1.75rem;
+    padding-right: 1rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.login-card .form-group.floating-label input::placeholder {
+    color: transparent;
+}
+
+.login-card .form-group.floating-label input:focus {
+    border-color: var(--blood-red);
+    background: rgba(255, 255, 255, 0.12);
+    outline: none;
+}
+.login-card .form-group.floating-label label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+.login-card .toggle-password {
+    z-index: 10 !important;
+}
+
+.login-card .form-group.floating-label input:focus + label,
+.login-card .form-group.floating-label input:not(:placeholder-shown) + label {
+    top: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--blood-red);
+}
+.login-card .password-group {
+    position: relative;
+}
+.login-card .password-group input {
+    padding-right: 5rem;
+}
+.login-card .toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    z-index: 2;
+}
+
+.login-card .checkbox-label {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
 .login-demo {
     text-align: center;
     margin-top: 1.5rem;
@@ -1310,21 +1384,21 @@ body.dark-mode .record-count { color: rgba(255,255,255,0.9); }
     margin-bottom: 2rem;
 }
 .dash-stat-card {
-    background: white;
+    background: linear-gradient(180deg, rgba(6,6,6,0.96), rgba(28,6,6,0.98));
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 16px;
     padding: 1.25rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    border: 1px solid rgba(0,0,0,0.04);
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     transition: transform 0.2s;
 }
 .dash-stat-card:hover { transform: translateY(-2px); }
 .dash-stat-card.warn { border-left: 3px solid #f59e0b; }
 .dash-stat-icon { font-size: 1.75rem; }
-.dash-stat-num { font-size: 1.75rem; font-weight: 800; color: var(--blood-red); }
-.dash-stat-label { font-size: 0.8rem; color: var(--muted); }
+.dash-stat-num { font-size: 1.75rem; font-weight: 800; color: var(--blood-light); }
+.dash-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
 
 .portal-grid {
     display: grid;

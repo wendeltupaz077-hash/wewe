@@ -27,6 +27,7 @@ class UserController extends Controller
         $this->authorizeAdmin();
 
         $users = User::with('facility')
+            ->where('role', '!=', 'super_admin')
             ->when($request->filled('search'), fn ($q) => $q->where(function ($q) use ($request) {
                 $q->where('fullname', 'like', '%'.$request->search.'%')
                     ->orWhere('email', 'like', '%'.$request->search.'%')
@@ -93,7 +94,10 @@ class UserController extends Controller
     public function edit(User $user): View
     {
         $this->authorizeAdmin();
-        $roles = ['super_admin' => 'Super Admin', 'admin' => 'Admin', 'facility_head' => 'Facility Head', 'facility_staff' => 'Facility Staff', 'user' => 'User'];
+        if ($user->role === 'super_admin') {
+            abort(403);
+        }
+        $roles = ['admin' => 'Admin', 'facility_head' => 'Facility Head', 'facility_staff' => 'Facility Staff', 'user' => 'User'];
         $facilities = Facility::orderBy('name')->get();
 
         return view('portal.users.edit', compact('user', 'roles', 'facilities'));
@@ -102,6 +106,9 @@ class UserController extends Controller
     public function update(Request $request, User $user): RedirectResponse
     {
         $this->authorizeAdmin();
+        if ($user->role === 'super_admin') {
+            abort(403);
+        }
 
         $data = $request->validate([
             'fullname' => 'required|string|max:255',
@@ -110,7 +117,7 @@ class UserController extends Controller
             'middle_name' => 'nullable|string|max:100',
             'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
             'phone' => 'nullable|string|max:20|unique:users,phone,' . $user->id,
-            'role' => 'required|in:super_admin,admin,facility_head,facility_staff,user',
+            'role' => 'required|in:admin,facility_head,facility_staff,user',
             'facility_id' => 'nullable|exists:facilities,id',
             'status' => 'required|in:active,inactive',
             'password' => 'nullable|string|min:8|confirmed',
@@ -142,6 +149,9 @@ class UserController extends Controller
     {
         $this->authorizeAdmin();
 
+        if ($user->role === 'super_admin') {
+            return redirect()->route('portal.users.index')->with('error', 'You cannot delete the super admin account.');
+        }
         if ($user->id === auth()->id()) {
             return redirect()->route('portal.users.index')->with('error', 'You cannot delete your own account.');
         }

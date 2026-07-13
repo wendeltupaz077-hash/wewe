@@ -1054,19 +1054,333 @@ img { max-width: 100%; display: block; }
 
 .hm-form-group { position: relative; margin-bottom: 1.5rem; }
 
+.hm-auth-page {
+    position: relative;
+    min-height: calc(100vh - 0px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem 5rem;
+    overflow: hidden;
+}
+
+.hm-auth-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 25% 20%, hsl(var(--arterial) / 0.18), transparent 25%),
+                radial-gradient(circle at 80% 70%, hsl(var(--arterial) / 0.12), transparent 22%),
+                linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.45));
+    pointer-events: none;
+}
+
+.hm-auth-container {
+    position: relative;
+    width: min(42rem, 100%);
+    z-index: 1;
+}
+
+.hm-auth-card {
+    position: relative;
+    border-radius: 1.5rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+    padding: 3rem;
+    overflow: hidden;
+}
+
+.hm-auth-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 40%);
+    pointer-events: none;
+}
+
+.hm-auth-card > * { position: relative; }
+
+.hm-auth-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.hm-auth-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 14px 40px rgba(0,0,0,0.16);
+}
+
+.hm-auth-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    line-height: 1.05;
+}
+
 .hm-form-input,
 .hm-form-textarea {
     width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid hsl(var(--border));
-    padding: 0.75rem 0;
+    background: hsl(var(--void));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
     color: hsl(var(--plasma));
     font-family: inherit;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
     resize: none;
+}
+
+.hm-form-input:focus,
+.hm-form-textarea:focus {
+    border-color: hsl(var(--arterial));
+    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.08);
+}
+
+.hm-form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.hm-auth-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.hm-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: hsl(var(--plasma));
+    font-size: 0.95rem;
+}
+
+.hm-checkbox input {
+    accent-color: hsl(var(--arterial));
+}
+
+.hm-auth-form .hm-btn-primary {
+    min-width: 11rem;
+    padding: 1rem 1.75rem;
+}
+
+.hm-auth-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 1.75rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.hm-auth-footer a {
+    color: hsl(var(--arterial));
+}
+
+.hm-auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.hm-auth-card .alert {
+    margin-bottom: 1rem;
+}
+
+.hm-auth-card .alert ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.hm-auth-card .alert li {
+    margin-bottom: 0.5rem;
+}
+
+.hm-login-body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: var(--font-heading);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.15), transparent 25%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.08), transparent 20%),
+                hsl(var(--void));
+    color: hsl(var(--plasma));
+    overflow-x: hidden;
+}
+
+.hm-login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.hm-login-card {
+    width: min(40rem, 100%);
+    padding: 3rem;
+    border-radius: 1.75rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.hm-login-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 35%);
+    pointer-events: none;
+}
+
+.hm-auth-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.hm-auth-header img {
+    width: 54px;
+    height: 54px;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+}
+
+.hm-auth-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.hm-form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.hm-form-input {
+    width: 100%;
+    min-height: 3.25rem;
+    background: hsl(var(--void));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    color: hsl(var(--plasma));
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.hm-form-input:focus {
+    border-color: hsl(var(--arterial));
+    box-shadow: 0 0 0 8px rgba(255, 0, 0, 0.08);
+}
+
+.hm-form-input::placeholder {
+    color: transparent;
+}
+
+.hm-floating-label .hm-form-label {
+    position: absolute;
+    left: 1.25rem;
+    top: 1rem;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    transition: transform 0.2s ease, font-size 0.2s ease, top 0.2s ease, color 0.2s ease;
+    background: transparent;
+    padding: 0 0.25rem;
+}
+
+.hm-floating-label .hm-form-input:focus + .hm-form-label,
+.hm-floating-label .hm-form-input:not(:placeholder-shown) + .hm-form-label {
+    top: -0.5rem;
+    left: 1.15rem;
+    font-size: 0.8rem;
+    color: hsl(var(--arterial));
+    transform: translateY(-2px);
+}
+
+/* Transparent, backdrop-blur variant for inputs that should show the background artwork */
+.transparent-input {
+    background: rgba(0,0,0,0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hm-auth-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.hm-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: hsl(var(--plasma));
+    font-size: 0.95rem;
+}
+
+.hm-checkbox input {
+    accent-color: hsl(var(--arterial));
+}
+
+.hm-btn-full {
+    width: 100%;
+}
+
+.hm-auth-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 1.75rem;
+    color: hsl(var(--muted-foreground));
+    position: relative;
+    z-index: 1;
+}
+
+.hm-auth-footer a {
+    color: hsl(var(--arterial));
+}
+
+.hm-auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.hm-btn-primary {
+    background: hsl(var(--arterial));
+    color: hsl(var(--plasma));
+}
+
+.hm-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px hsl(var(--arterial) / 0.45);
 }
 
 .hm-form-input:focus,

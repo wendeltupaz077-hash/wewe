@@ -19,6 +19,7 @@
             <div class="hm-hero-actions">
                 <a href="{{ route('donor-directory') }}" class="hm-btn hm-btn-primary">Get Started</a>
                 <a href="{{ route('about') }}" class="hm-btn hm-btn-outline">Learn More</a>
+                <a href="{{ route('admin-login') }}" class="hm-btn hm-btn-secondary">Admin Login</a>
             </div>
         </div>
 

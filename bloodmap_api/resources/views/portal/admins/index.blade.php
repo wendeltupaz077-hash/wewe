@@ -6,21 +6,27 @@
 <div class="portal-card reveal">
     <div class="portal-card-header">
         <h2>Admin Accounts</h2>
-        <form method="GET" action="{{ route('portal.admins.index') }}" style="display:flex;gap:.5rem;align-items:center;">
-            <input type="search" name="search" placeholder="Search admins" value="{{ request('search') }}" class="field-input" />
-            <select name="role" class="field-select">
-                <option value="">Any role</option>
-                <option value="admin" {{ request('role')=='admin'?'selected':'' }}>Admin</option>
-                <option value="super_admin" {{ request('role')=='super_admin'?'selected':'' }}>Super Admin</option>
-            </select>
-            <select name="status" class="field-select">
-                <option value="">Any status</option>
-                <option value="active" {{ request('status')=='active'?'selected':'' }}>Active</option>
-                <option value="inactive" {{ request('status')=='inactive'?'selected':'' }}>Inactive</option>
-            </select>
-            <button class="btn btn-ghost btn-sm">Filter</button>
-        </form>
-        <a href="{{ route('portal.admins.create') }}" class="btn btn-primary btn-sm">+ Add Admin</a>
+        <div style="display:flex;gap:1rem;align-items:center;">
+            <form method="GET" action="{{ route('portal.admins.index') }}" style="display:flex;gap:.5rem;align-items:center;">
+                <input type="search" name="search" placeholder="Search admins" value="{{ request('search') }}" class="field-input" />
+                <select name="role" class="field-select">
+                    <option value="">Any role</option>
+                    <option value="admin" {{ request('role')=='admin'?'selected':'' }}>Admin</option>
+                    <option value="super_admin" {{ request('role')=='super_admin'?'selected':'' }}>Super Admin</option>
+                </select>
+                <select name="status" class="field-select">
+                    <option value="">Any status</option>
+                    <option value="active" {{ request('status')=='active'?'selected':'' }}>Active</option>
+                    <option value="inactive" {{ request('status')=='inactive'?'selected':'' }}>Inactive</option>
+                </select>
+                <button class="btn btn-ghost btn-sm">Filter</button>
+            </form>
+            <div style="display:flex;gap:.5rem;">
+                <a href="{{ route('portal.admins.login-history') }}" class="btn btn-ghost btn-sm">Login History</a>
+                <a href="{{ route('portal.admins.audit-logs') }}" class="btn btn-ghost btn-sm">Audit Logs</a>
+                <a href="{{ route('portal.admins.create') }}" class="btn btn-primary btn-sm">+ Add Admin</a>
+            </div>
+        </div>
     </div>
 
 

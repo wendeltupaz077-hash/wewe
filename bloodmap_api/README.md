@@ -41,7 +41,15 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[DevSquad](https://devsquad.com/hire-laravel-developers)**
 - **[Redberry](https://redberry.international/laravel-development)**
 - **[Active Logic](https://activelogic.com)**
+## Local and InfinityFree deployment
 
+This project is kept compatible with both local development and shared-hosting deployment without changing application logic.
+
+- Local development continues to use the standard Laravel entrypoint in [public/index.php](public/index.php) and [public/.htaccess](public/.htaccess).
+- InfinityFree deployment uses the production-safe package in [deployment/infinityfree](deployment/infinityfree).
+- The app automatically adapts through the normal Laravel environment handling from [.env](.env) and the production values in [deployment/infinityfree/.env.production.example](deployment/infinityfree/.env.production.example).
+
+For deployment steps, see [deployment/infinityfree/README.md](deployment/infinityfree/README.md).
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).

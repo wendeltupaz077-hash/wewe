@@ -1,0 +1,236 @@
+﻿
+vendor\laravel\socialite\src\Contracts\Provider.php:12:    public function 
+redirect();
+vendor\laravel\socialite\src\Contracts\Provider.php:19:    public function 
+user();
+vendor\laravel\socialite\src\One\AbstractProvider.php:52:    public function 
+redirect()
+vendor\laravel\socialite\src\One\AbstractProvider.php:68:    public function 
+user()
+vendor\laravel\socialite\src\One\TwitterProvider.php:10:    public function 
+user()
+vendor\laravel\socialite\src\One\TwitterProvider.php:42:    public function 
+scope(string $scope)
+vendor\laravel\socialite\src\One\TwitterProvider.php:44:        
+$this->server->setApplicationScope($scope);
+vendor\laravel\socialite\src\Testing\FakeProvider.php:61:    public function 
+redirect()
+vendor\laravel\socialite\src\Testing\FakeProvider.php:71:    public function 
+user()
+vendor\laravel\socialite\src\Testing\FakeProvider.php:77:        return 
+$this->user ?? $this->provider()->user();
+vendor\laravel\socialite\src\Two\AbstractProvider.php:58:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:62:    protected $scopes 
+= [];
+vendor\laravel\socialite\src\Two\AbstractProvider.php:65:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:69:    protected 
+$scopeSeparator = ',';
+vendor\laravel\socialite\src\Two\AbstractProvider.php:83:    protected 
+$stateless = false;
+vendor\laravel\socialite\src\Two\AbstractProvider.php:161:    public function 
+redirect()
+vendor\laravel\socialite\src\Two\AbstractProvider.php:199:            'scope' 
+=> $this->formatScopes($this->getScopes(), $this->scopeSeparator),
+vendor\laravel\socialite\src\Two\AbstractProvider.php:216:     * Format the 
+given scopes.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:218:     * @param  array 
+ $scopes
+vendor\laravel\socialite\src\Two\AbstractProvider.php:219:     * @param  
+string  $scopeSeparator
+vendor\laravel\socialite\src\Two\AbstractProvider.php:222:    protected 
+function formatScopes(array $scopes, $scopeSeparator)
+vendor\laravel\socialite\src\Two\AbstractProvider.php:224:        return 
+implode($scopeSeparator, $scopes);
+vendor\laravel\socialite\src\Two\AbstractProvider.php:230:    public function 
+user()
+vendor\laravel\socialite\src\Two\AbstractProvider.php:261:            
+->setApprovedScopes(explode($this->scopeSeparator, Arr::get($response, 
+'scope', '')));
+vendor\laravel\socialite\src\Two\AbstractProvider.php:284:        if 
+($this->isStateless()) {
+vendor\laravel\socialite\src\Two\AbstractProvider.php:357:            
+explode($this->scopeSeparator, Arr::get($response, 'scope', ''))
+vendor\laravel\socialite\src\Two\AbstractProvider.php:391:     * Merge the 
+scopes of the requested access.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:393:     * @param  
+array|string  $scopes
+vendor\laravel\socialite\src\Two\AbstractProvider.php:396:    public function 
+scopes($scopes)
+vendor\laravel\socialite\src\Two\AbstractProvider.php:398:        
+$this->scopes = array_values(array_unique(array_merge($this->scopes, (array) 
+$scopes)));
+vendor\laravel\socialite\src\Two\AbstractProvider.php:404:     * Set the 
+scopes of the requested access.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:406:     * @param  
+array|string  $scopes
+vendor\laravel\socialite\src\Two\AbstractProvider.php:409:    public function 
+setScopes($scopes)
+vendor\laravel\socialite\src\Two\AbstractProvider.php:411:        
+$this->scopes = array_values(array_unique((array) $scopes));
+vendor\laravel\socialite\src\Two\AbstractProvider.php:417:     * Get the 
+current scopes.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:421:    public function 
+getScopes()
+vendor\laravel\socialite\src\Two\AbstractProvider.php:423:        return 
+$this->scopes;
+vendor\laravel\socialite\src\Two\AbstractProvider.php:486:        return ! 
+$this->stateless;
+vendor\laravel\socialite\src\Two\AbstractProvider.php:490:     * Determine if 
+the provider is operating as stateless.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:494:    protected 
+function isStateless()
+vendor\laravel\socialite\src\Two\AbstractProvider.php:496:        return 
+$this->stateless;
+vendor\laravel\socialite\src\Two\AbstractProvider.php:500:     * Indicates 
+that the provider should operate as stateless.
+vendor\laravel\socialite\src\Two\AbstractProvider.php:504:    public function 
+stateless()
+vendor\laravel\socialite\src\Two\AbstractProvider.php:506:        
+$this->stateless = true;
+vendor\laravel\socialite\src\Two\AbstractProvider.php:581:    public function 
+with(array $parameters)
+vendor\laravel\socialite\src\Two\BitbucketProvider.php:12:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\BitbucketProvider.php:16:    protected 
+$scopes = ['email'];
+vendor\laravel\socialite\src\Two\BitbucketProvider.php:19:     * The 
+separating character for the requested scopes.
+vendor\laravel\socialite\src\Two\BitbucketProvider.php:23:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\BitbucketProvider.php:54:        if 
+(in_array('email', $this->scopes, true)) {
+vendor\laravel\socialite\src\Two\FacebookProvider.php:37:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\FacebookProvider.php:41:    protected $scopes 
+= ['email'];
+vendor\laravel\socialite\src\Two\GithubProvider.php:12:     * The scopes being 
+requested.
+vendor\laravel\socialite\src\Two\GithubProvider.php:16:    protected $scopes = 
+['user:email'];
+vendor\laravel\socialite\src\Two\GithubProvider.php:47:        if 
+(in_array('user:email', $this->scopes, true)) {
+vendor\laravel\socialite\src\Two\GitlabProvider.php:10:     * The scopes being 
+requested.
+vendor\laravel\socialite\src\Two\GitlabProvider.php:14:    protected $scopes = 
+['read_user'];
+vendor\laravel\socialite\src\Two\GitlabProvider.php:17:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\GitlabProvider.php:21:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\GoogleProvider.php:14:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\GoogleProvider.php:18:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\GoogleProvider.php:21:     * The scopes being 
+requested.
+vendor\laravel\socialite\src\Two\GoogleProvider.php:25:    protected $scopes = 
+[
+vendor\laravel\socialite\src\Two\GoogleProvider.php:80:            
+explode($this->scopeSeparator, Arr::get($response, 'scope', ''))
+vendor\laravel\socialite\src\Two\LinkedInOpenIdProvider.php:10:     * The 
+scopes being requested.
+vendor\laravel\socialite\src\Two\LinkedInOpenIdProvider.php:14:    protected 
+$scopes = ['openid', 'profile', 'email'];
+vendor\laravel\socialite\src\Two\LinkedInOpenIdProvider.php:17:     * The 
+separating character for the requested scopes.
+vendor\laravel\socialite\src\Two\LinkedInOpenIdProvider.php:21:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\LinkedInProvider.php:11:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\LinkedInProvider.php:15:    protected $scopes 
+= ['r_liteprofile', 'r_emailaddress'];
+vendor\laravel\socialite\src\Two\LinkedInProvider.php:18:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\LinkedInProvider.php:22:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\LinkedInProvider.php:61:        if 
+(in_array('r_liteprofile', $this->getScopes())) {
+vendor\laravel\socialite\src\Two\ProviderInterface.php:12:    public function 
+redirect();
+vendor\laravel\socialite\src\Two\ProviderInterface.php:19:    public function 
+user();
+vendor\laravel\socialite\src\Two\SlackOpenIdProvider.php:11:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\SlackOpenIdProvider.php:15:    protected 
+$scopes = ['openid', 'email', 'profile'];
+vendor\laravel\socialite\src\Two\SlackOpenIdProvider.php:18:     * The 
+separating character for the requested scopes.
+vendor\laravel\socialite\src\Two\SlackOpenIdProvider.php:22:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\SlackProvider.php:11:     * The scopes being 
+requested.
+vendor\laravel\socialite\src\Two\SlackProvider.php:15:    protected $scopes = 
+['identity.basic', 'identity.email', 'identity.team', 'identity.avatar'];
+vendor\laravel\socialite\src\Two\SlackProvider.php:18:     * The key used for 
+scopes.
+vendor\laravel\socialite\src\Two\SlackProvider.php:29:    public function 
+asBotUser()
+vendor\laravel\socialite\src\Two\SlackProvider.php:87:            
+$fields['user_scope'] = $this->formatScopes($this->scopes, 
+$this->scopeSeparator);
+vendor\laravel\socialite\src\Two\Token.php:29:     * The scopes the user 
+authorized. The approved scopes may be a subset of the requested scopes.
+vendor\laravel\socialite\src\Two\Token.php:33:    public $approvedScopes;
+vendor\laravel\socialite\src\Two\Token.php:41:     * @param  array  
+$approvedScopes
+vendor\laravel\socialite\src\Two\Token.php:43:    public function 
+__construct(string $token, string $refreshToken, int $expiresIn, array 
+$approvedScopes)
+vendor\laravel\socialite\src\Two\Token.php:48:        $this->approvedScopes = 
+$approvedScopes;
+vendor\laravel\socialite\src\Two\TwitchProvider.php:11:     * The scopes being 
+requested.
+vendor\laravel\socialite\src\Two\TwitchProvider.php:15:    protected $scopes = 
+['user:read:email'];
+vendor\laravel\socialite\src\Two\TwitchProvider.php:18:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\TwitchProvider.php:22:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\TwitchProvider.php:70:        $scopes = 
+Arr::get($response, 'scope', []);
+vendor\laravel\socialite\src\Two\TwitchProvider.php:72:        if (! 
+is_array($scopes)) {
+vendor\laravel\socialite\src\Two\TwitchProvider.php:73:            $scopes = 
+explode($this->scopeSeparator, $scopes);
+vendor\laravel\socialite\src\Two\TwitchProvider.php:79:            
+->setApprovedScopes($scopes);
+vendor\laravel\socialite\src\Two\TwitterProvider.php:11:     * The scopes 
+being requested.
+vendor\laravel\socialite\src\Two\TwitterProvider.php:15:    protected $scopes 
+= ['users.read', 'users.email', 'tweet.read'];
+vendor\laravel\socialite\src\Two\TwitterProvider.php:25:     * The separating 
+character for the requested scopes.
+vendor\laravel\socialite\src\Two\TwitterProvider.php:29:    protected 
+$scopeSeparator = ' ';
+vendor\laravel\socialite\src\Two\TwitterProvider.php:120:        if 
+($this->isStateless()) {
+vendor\laravel\socialite\src\Two\User.php:31:     * The scopes the user 
+authorized. The approved scopes may be a subset of the requested scopes.
+vendor\laravel\socialite\src\Two\User.php:35:    public $approvedScopes;
+vendor\laravel\socialite\src\Two\User.php:54:            'approvedScopes' => 
+[],
+vendor\laravel\socialite\src\Two\User.php:61:            
+->setApprovedScopes($attributes['approvedScopes']);
+vendor\laravel\socialite\src\Two\User.php:104:     * Set the scopes that were 
+approved by the user during authentication.
+vendor\laravel\socialite\src\Two\User.php:106:     * @param  array  
+$approvedScopes
+vendor\laravel\socialite\src\Two\User.php:109:    public function 
+setApprovedScopes($approvedScopes)
+vendor\laravel\socialite\src\Two\User.php:111:        $this->approvedScopes = 
+$approvedScopes;
+vendor\laravel\socialite\src\Socialite.php:13: * @method array getScopes()
+vendor\laravel\socialite\src\Socialite.php:14: * @method 
+\Laravel\Socialite\Contracts\Provider scopes(array|string $scopes)
+vendor\laravel\socialite\src\Socialite.php:15: * @method 
+\Laravel\Socialite\Contracts\Provider setScopes(array|string $scopes)
+vendor\laravel\socialite\src\SocialiteManager.php:42:    public function 
+with($driver)
+vendor\laravel\socialite\src\SocialiteManager.php:254:        
+))->scopes($config['scopes'] ?? []);
+vendor\laravel\socialite\src\SocialiteManager.php:282:        return 
+Str::startsWith($redirect ?? '', '/')
+
+

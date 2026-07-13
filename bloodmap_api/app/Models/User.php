@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -17,26 +16,27 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name', 'first_name', 'last_name', 'middle_name', 'fullname',
-        'email', 'phone', 'password', 'role', 'facility_id',
+        'email', 'phone', 'password', 'google_id', 'role', 'facility_id',
         'is_registered', 'phone_verified', 'last_login_at',
         'remember_token', 'profile_picture', 'status', 'is_first_login',
+        'failed_login_attempts', 'locked_until', 'two_factor_enabled',
         'preferences',
     ];
 
     protected $hidden = ['password', 'remember_token'];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_registered' => 'boolean',
-            'phone_verified' => 'boolean',
-            'last_login_at' => 'datetime',
-            'is_first_login' => 'boolean',
-            'preferences' => 'array',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_registered' => 'boolean',
+        'phone_verified' => 'boolean',
+        'last_login_at' => 'datetime',
+        'is_first_login' => 'boolean',
+        'failed_login_attempts' => 'integer',
+        'locked_until' => 'datetime',
+        'two_factor_enabled' => 'boolean',
+        'preferences' => 'array',
+    ];
 
     public function getPreference(string $key, $default = null)
     {
